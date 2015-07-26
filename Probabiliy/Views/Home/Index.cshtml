@@ -1,0 +1,109 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="col-sm-6">
+
+    <h1>Probability Calculator</h1>
+
+    <form role="form" id="probabilityForm">
+
+
+        <div class="form-group">
+            <label for="probA">Probability A:</label>
+            <input type="text" class="form-control" id="probA">
+        </div>
+        <div class="form-group">
+            <label for="probB">Probability B:</label>
+            <input type="text" class="form-control" id="probB">
+        </div>
+
+        <div class="radio">
+            <label><input type="radio" name="calculationType" value="combine" checked="checked">Combined With</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="calculationType" value="either">Either</label>
+        </div>
+
+        <div class="alert alert-success" hidden id="messageBox">
+            <srong>Your Answer: </srong> <span id="answer"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <button type="button" class="btn btn-primary" onclick="Submit()">Submit</button>
+        </div>
+
+    
+
+    </form>
+
+</div>
+
+
+<script>
+
+
+
+    function Submit()
+    {
+
+        $("#messageBox").hide();
+
+        var probA = $("#probA").val();
+        var probB = $("#probB").val();
+        var calcType;
+        var result;
+
+        calculation = new ProbabilityCalculation(probA, probB);
+
+        if ($('input[name=calculationType]:checked', '#probabilityForm').val() == "combine")
+        {
+            console.log(calculation.CombinedWith());
+            calcType = "Combined";
+            result = calculation.CombinedWith();
+        }
+        else if ($('input[name=calculationType]:checked', '#probabilityForm').val() == "either")
+        {
+            console.log(calculation.Either());
+            calcType = "Either";
+            result = calculation.Either();
+        }
+
+
+        $("#answer").html(result);
+
+        $("#messageBox").show();
+
+        postCalculation(probA, probB, calcType, result)
+
+
+
+    }
+
+    function postCalculation(probA, probB, calcType, result)
+    {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Home/Index',
+            data: {
+                probA: probA,
+                probB: probB,
+                calculationType: calcType,
+                result : result
+            },
+            success: function (response) {
+
+                console.log("It Worked");
+            }
+        });
+
+    }
+
+</script>

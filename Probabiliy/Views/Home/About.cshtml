@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<div class="col-sm-6">
+
+    <h1>About</h1>
+
+    <p>This app calculates either the</p>
+    <ul>
+        <li>Combined probability of P(A) and P(B)</li>
+        <li>The probability of either P(A) or P(B) occuring</li>
+    </ul>
+
+    <p><strong>Errors and Validation </strong>Errors are produced on invalid input, these are output in the console </p>
+
+    <h2>Architecture</h2>
+    <p>
+        This app uses the MVC pattern. For the Index and About Action there are no Models being passed in. However
+        if the user makes a POST Request to Index, then the form values are posted into the the Index Action. The
+        Index ActionResult uses these parameters to create a Calculation Model. This Calculation Model is passed 
+        into a logger which writes the results of the calculation to CalculationLog.txt which is located in the 
+        Logs folder in the root directory of the project.
+    </p>
+
+    <h2>Notable FrontEnd Files</h2>
+
+    <ul>
+        <li>~/JasmineTests/tests.js</li>
+        <li>~/Scripts/Custom/probability.js</li>
+    </ul>
+
+
+    <h2>Front-End Unit Testing</h2>
+    <p>
+        All the front-end code was test driven by using jasmine.js. First of all I considered a ProbabilityCalculation
+        object that would need to be constructed with valid probabilities.  I did this by ensuring the the object threw
+        errors if it was constructed with probabilities that were not numbers or outside the range 0 to 1.
+    </p>
+    <p>
+        Next I wrote tests to drive the logic behind the Combined and Either probability calculations. Once the all
+        the tests passed I refactored my code to be neater.
+    </p>
+
+    <h2>Technologies</h2>
+    <ul>
+        <li><strong>Jasmine</strong> - Javascript unit testing</li>
+        <li><strong>JQuery</strong> - Selecting and manipulating DOM Elements</li>
+        <li><strong>Bootstrap</strong> - For layouts and styling</li>
+        <li><strong>NUnit</strong> - Alternative Testing Framework</li>
+    </ul>
+
+</div>
